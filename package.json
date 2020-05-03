@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "nodemon src/server/index.ts --exec ts-node",
+    "build": "next build ./src",
     "start": "next start",
-    "lint": "eslint pages --ext .js,.ts",
-    "lint:fix": "eslint pages --fix --ext .js,.ts"
+    "lint": "eslint src --ext .js,.ts,.tsx",
+    "lint:fix": "eslint src --fix --ext .js,.ts,.tsx"
   },
   "husky": {
     "hooks": {
@@ -17,18 +17,29 @@
   },
   "lint-staged": {
     "*.ts": [
-      "eslint pages --fix",
       "git add"
     ]
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^8.0.8",
+    "mysql2": "^2.1.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "sequelize": "^5.21.7",
+    "umzug": "^2.3.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.0",
+    "@types/next": "^9.0.0",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
@@ -41,6 +52,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
+    "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
     "ts-node": "^8.9.1",
     "ts-paths": "^0.1.3",
