@@ -7,7 +7,7 @@ export default class Main extends Component {
       <>
         <HomeLayout>
           <div>
-            <h1 className='title'>Welcome to Index</h1>
+            <h1 className='title'>Welcome to Detail</h1>
           </div>
         </HomeLayout>
       </>

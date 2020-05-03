@@ -1,5 +1,9 @@
 {
   "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "react",
+    "typescript"
+  ],
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
@@ -7,9 +11,14 @@
   ],
   "parserOptions": {
     "ecmaVersion": 2018,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -38,5 +47,10 @@
         "ignoreReadBeforeAssign": false
       }
     ]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
   }
 }

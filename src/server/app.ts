@@ -17,14 +17,15 @@ const serverHandler = async (ctx: Context) => {
   // Be sure to pass `true` as the second argument to `url.parse`.
   // This tells it to parse the query portion of the URL.
   const parsedUrl = parse(ctx.request.url, true)
-  // const { pathname, query } = parsedUrl
-  await handle(ctx.req, ctx.res, parsedUrl)
+  const { pathname, query } = parsedUrl
+  // await handle(ctx.req, ctx.res, parsedUrl)
+  ctx.status = 200
+  if (pathname === '/') {
+    await nextApp.render(ctx.req, ctx.res, '/', query)
+  } else {
+    await handle(ctx.req, ctx.res, parsedUrl)
+  }
   ctx.respond = false
-  // if (pathname === '/') {
-  // nextApp.render(ctx.req, ctx.res, '/', query)
-  // } else {
-  //   handle(ctx.req, ctx.res, parsedUrl)
-  // }
 }
 
 export default {
