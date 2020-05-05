@@ -54,7 +54,7 @@ export default {
       ctx.set('Access-Control-Allow-Credentials', 'true')
       ctx.set(
         'Access-Control-Allow-Headers',
-        'Content-Type, Content-Length, Authorization, Accept, X-Requested-With, auth-schema-4923'
+        'Content-Type, Content-Length, Authorization, Accept, X-Requested-With, auth-schema-hodgepodge'
       )
       ctx.set('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET, DELETE, OPTIONS')
       if (ctx.request.method === 'OPTIONS') {
