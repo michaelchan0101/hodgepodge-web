@@ -1,7 +1,7 @@
 'use strict'
 const { DataTypes } = require('sequelize')
 
-const TABLE_NAME = 'articles'
+const TABLE_NAME = 'categories'
 
 module.exports = {
   up: async queryInterface => {
@@ -14,12 +14,8 @@ module.exports = {
           autoIncrement: true,
           allowNull: false,
         },
-        title: {
+        name: {
           type: DataTypes.STRING,
-          allowNull: false,
-        },
-        content: {
-          type: DataTypes.TEXT,
           allowNull: false,
         },
         createdAt: {
