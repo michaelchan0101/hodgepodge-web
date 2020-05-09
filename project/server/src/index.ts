@@ -4,7 +4,7 @@ import http from 'http'
 import app from './app'
 import umzug from './drivers/umzug'
 
-const PORT = process.env.PORT || 3003
+const PORT = process.env.PORT || 3000
 
 async function main() {
   await umzug.umzugUp()
