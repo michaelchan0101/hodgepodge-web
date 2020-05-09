@@ -5,23 +5,5 @@
   "scripts": {
     "dev": "nodemon src/index.ts --exec ts-node",
     "start": "next start"
-  },
-  "dependencies": {
-    "@hapi/joi": "^17.1.1",
-    "dotenv": "^8.2.0",
-    "koa": "^2.11.0",
-    "koa-bodyparser": "^4.3.0",
-    "koa-router": "^8.0.8",
-    "mysql2": "^2.1.0",
-    "sequelize": "^5.21.7",
-    "umzug": "^2.3.0",
-    "winston": "^3.2.1"
-  },
-  "devDependencies": {
-    "@types/dotenv": "^8.2.0",
-    "@types/koa": "^2.11.3",
-    "@types/koa-bodyparser": "^4.3.0",
-    "@types/koa-router": "^7.4.0",
-    "nodemon": "^2.0.3"
   }
 }

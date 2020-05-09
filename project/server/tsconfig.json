@@ -19,7 +19,8 @@
     "outDir": "dist",
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "utils/*": ["./utils/*"]
     },
     "skipLibCheck": true,
     "strict": false,

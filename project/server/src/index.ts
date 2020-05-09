@@ -1,3 +1,5 @@
+import './utils/modulesAlias'
+
 import http from 'http'
 import app from './app'
 import umzug from './drivers/umzug'
