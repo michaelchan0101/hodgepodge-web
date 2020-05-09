@@ -1,5 +1,6 @@
 import { envParser } from '@/utils'
 import logger from 'utils/logger'
+import path from 'path'
 
 const credentials = envParser(__dirname, '../../', '.env')
 
@@ -25,5 +26,8 @@ export default {
     logging: str => {
       logger.info(str)
     },
+  },
+  article: {
+    basePath: path.join(__dirname, '../../', 'articles'),
   },
 }
