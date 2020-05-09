@@ -22,6 +22,7 @@
       "@/*": ["./*"],
       "utils/*": ["./utils/*"],
       "drivers/*": ["./drivers/*"],
+      "services/*": ["./services/*"],
     },
     "skipLibCheck": true,
     "strict": false,

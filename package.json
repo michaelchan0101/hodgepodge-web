@@ -6,7 +6,7 @@
     "dev": "cd project/server && yarn dev",
     "docker:up": "cd project/server && docker-compose up -d",
     "docker:down": "cd project/server && docker-compose down",
-    "test:service": "cd project/server && yarn test",
+    "test:server": "cd project/server && yarn test",
     "lint": "eslint project --ext .js,.ts,.tsx",
     "lint:fix": "eslint project --fix --ext .js,.ts,.tsx",
     "tsc:config": "cd project/server && yarn tsc:config"
