@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cd project/server && yarn dev",
-    "docker:up": "cd project/server && docker-compose up -d",
-    "docker:down": "cd project/server && docker-compose down",
-    "test:server": "cd project/server && yarn test",
+    "dev": "cd server && yarn dev",
+    "docker:up": "cd server && docker-compose up -d",
+    "docker:down": "cd server && docker-compose down",
+    "test:server": "cd server && yarn test",
     "lint": "eslint project --ext .js,.ts,.tsx",
     "lint:fix": "eslint project --fix --ext .js,.ts,.tsx",
-    "tsc:config": "cd project/server && yarn tsc:config"
+    "tsc:config": "cd server && yarn tsc:config"
   },
   "husky": {
     "hooks": {
