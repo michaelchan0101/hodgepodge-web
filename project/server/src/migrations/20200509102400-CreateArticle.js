@@ -25,6 +25,7 @@ module.exports = {
         categoryId: {
           type: DataTypes.INTEGER.UNSIGNED,
           allowNull: false,
+          field: 'category_id',
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -47,12 +48,18 @@ module.exports = {
         },
       },
       {
+        engine: 'MyISAM',
         charset: 'utf8mb4',
         collate: 'utf8mb4_unicode_ci',
       }
     )
+    await queryInterface.addIndex(TABLE_NAME, ['title', 'content'], {
+      name: 'article_index_title_content',
+      type: 'FULLTEXT',
+    })
   },
   down: async queryInterface => {
+    await queryInterface.removeIndex(TABLE_NAME, 'article_index_title_content')
     await queryInterface.dropTable(TABLE_NAME)
   },
 }
