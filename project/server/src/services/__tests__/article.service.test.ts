@@ -18,5 +18,6 @@ describe('articleService', () => {
     const articles = await articleService.batchImportArtcles(exampleData)
     expect(articles).toHaveLength(exampleData.length)
     expect(articles[0].title).toEqual(exampleData[0].title)
+    expect(articles[0].createdAt).toEqual(articles[0].updatedAt)
   })
 })

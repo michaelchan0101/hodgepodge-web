@@ -17,15 +17,18 @@ async function md2html(path: string): Promise<string> {
 }
 
 async function createArtcle(req: CreateOrUpdateArticleRequest): Promise<Article> {
-  const article = await Article.create({ ...req, createdAt: req.updatedAt })
+  const article: Article = await Article.create({ ...req, createdAt: req.updatedAt })
+  article.set({ updatedAt: req.updatedAt }, { raw: true })
+  await article.save({ silent: true, fields: ['updatedAt'] })
   return article
 }
 
 async function updateArtcle(
-  id: number,
+  article: Article,
   req: CreateOrUpdateArticleRequest
 ): Promise<Article> {
-  const article = await Article.update(req, { where: { id } })
+  article.set(req, { raw: true })
+  await article.save({ silent: true, fields: ['updatedAt'] })
   return article
 }
 
@@ -41,18 +44,18 @@ export default {
     const articles: Array<Article> = await Article.findAll({
       where: { title: { [Op.in]: files.map(file => file.title) } },
     })
-    const articleObj = {}
+    const articleObj: { [title: string]: Article } = {}
     articles.forEach(article => {
-      articleObj[article.title] = {
-        id: article.id,
-        createdAt: article.createdAt.getTime(),
-      }
+      articleObj[article.title] = article
     })
     const nArticles: Array<ArticleResponse> = []
     for await (const file of files) {
       const { path, title, categoryId } = file
       const updatedAt = await getFileUpdatedAt(path)
-      if (articleObj[title] && updatedAt.getTime() <= articleObj[title].createdAt) {
+      if (
+        articleObj[title] &&
+        updatedAt.getTime() <= articleObj[title].createdAt.getTime()
+      ) {
         return
       }
 
@@ -68,7 +71,7 @@ export default {
       if (!articleObj[title]) {
         article = await createArtcle(articleReq)
       } else {
-        article = await updateArtcle(articleObj[title].id, articleReq)
+        article = await updateArtcle(articleObj[title], articleReq)
       }
       nArticles.push(getArticleResponse(article))
     }
