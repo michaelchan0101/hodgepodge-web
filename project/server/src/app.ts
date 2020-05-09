@@ -13,6 +13,7 @@ const nextClientApp = next({
   dir: path.join(__dirname, '../../client'),
 })
 
+global.loadFixtures = false
 const handle = nextClientApp.getRequestHandler()
 const serverHandler = async (ctx: Context) => {
   // Be sure to pass `true` as the second argument to `url.parse`.

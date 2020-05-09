@@ -15,12 +15,13 @@
     "declaration": false,
     "esModuleInterop": true,
     "allowJs": false,
-    "lib": ["es2018"],
+    "lib": ["es2018", "DOM"],
     "outDir": "dist",
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
-      "utils/*": ["./utils/*"]
+      "utils/*": ["./utils/*"],
+      "drivers/*": ["./drivers/*"],
     },
     "skipLibCheck": true,
     "strict": false,

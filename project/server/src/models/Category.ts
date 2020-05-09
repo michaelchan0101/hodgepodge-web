@@ -25,6 +25,6 @@ export function initCategory(sequelize: Sequelize) {
   Category.init(scheme, { sequelize, tableName: 'categories' })
 }
 
-export function associateCategory(sequelize: Sequelize) {
+export function associateCategory() {
   Category.hasMany(Article, { foreignKey: 'categoryId' })
 }

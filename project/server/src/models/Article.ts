@@ -36,6 +36,6 @@ export function initArticle(sequelize: Sequelize) {
   Article.init(scheme, { sequelize, tableName: 'articles' })
 }
 
-export function associateArticle(sequelize: Sequelize) {
+export function associateArticle() {
   Article.belongsTo(Category, { targetKey: 'id' })
 }

@@ -1,7 +1,11 @@
 import sequelize from '../drivers/sequelize'
-import { Article, initArticle } from './Article'
+import { Category, initCategory, associateCategory } from './Category'
+import { Article, initArticle, associateArticle } from './Article'
 
 // init model
-;[initArticle].forEach(initFunc => initFunc(sequelize))
+;[initCategory, initArticle].forEach(initFunc => initFunc(sequelize))
 
-export { sequelize, Article }
+// associate model
+;[associateCategory, associateArticle].forEach(associateFunc => associateFunc())
+
+export { sequelize, Category, Article }
