@@ -3,9 +3,8 @@ import bodyParser from 'koa-bodyparser'
 import next from 'next'
 import { parse } from 'url'
 import path from 'path'
-// import { ResourceNotFoundError } from '@/errors'
 // import errorHandler from 'middlewares/error'
-import router from './routers'
+import { getRouters } from './routers'
 import { Context } from './interfaces/http'
 
 export const nextClientApp = next({
@@ -38,7 +37,6 @@ export async function createApiServer(): Promise<Koa> {
       enableTypes: ['json', 'form', 'xml'],
     })
   )
-  // app.use(errorHandler.genericSwaggerErrorHandler)
   // app.use(async (ctx, next) => {
   //   try {
   //     await next()
@@ -73,12 +71,9 @@ export async function createApiServer(): Promise<Koa> {
   //   }
   //   return next()
   // })
-  app.use(router(nextClientApp).routes())
+  app.use(getRouters())
   app.use(serverHandler)
-  // catch 404 and forward to error handler
-  // app.use(ctx => {
-  //   throw new ResourceNotFoundError(ctx.request)
-  // })
+
   // app.on('error', errorHandler.generalErrorHandler)
   return app
 }
