@@ -8,8 +8,8 @@
     "docker:down": "cd server && docker-compose down",
     "build:server": "cd server && yarn build",
     "test:server": "cd server && yarn test",
-    "lint": "eslint project --ext .js,.ts,.tsx",
-    "lint:fix": "eslint project --fix --ext .js,.ts,.tsx",
+    "lint": "eslint --ext .js,.ts,.tsx .",
+    "lint:fix": "yarn lint --fix",
     "tsc:config": "cd server && yarn tsc:config"
   },
   "husky": {
@@ -39,6 +39,7 @@
     "moment": "^2.25.3",
     "mysql2": "^2.1.0",
     "next": "^9.3.6",
+    "pretty-error": "^2.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sequelize": "^5.21.7",
