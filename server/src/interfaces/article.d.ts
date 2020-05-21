@@ -1,3 +1,5 @@
+import { CategoryResponse } from './category'
+
 export interface ImportArticleRequest {
   categoryId: number
   title: string
@@ -16,6 +18,7 @@ export interface ArticleResponse {
   categoryId: number
   title: string
   content: string
+  category?: CategoryResponse
   createdAt: number
   updatedAt: number
 }
@@ -25,7 +28,7 @@ export interface ListArticlesFilter {
 }
 
 export interface ListArticlesResponse {
-  articles: Array<Article>
+  articles: Array<ArticleResponse>
   limit: number
   offset: number
 }

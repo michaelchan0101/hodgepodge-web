@@ -43,4 +43,7 @@ export function initArticle(sequelize: Sequelize) {
 
 export function associateArticle() {
   Article.belongsTo(Category, { targetKey: 'id' })
+  Article.addScope('withCategory', {
+    include: [Category],
+  })
 }

@@ -7,6 +7,16 @@ describe('articleService', () => {
   beforeAll(async () => {
     await fixtures.reloadFixtures()
   })
+  describe('listArtcles', () => {
+    test('should successfully', async () => {
+      const results = await articleService.listArtcles()
+      expect(results.articles).toHaveLength(6)
+      expect(results.articles[0].id).toEqual(6)
+      expect(results.articles[0].category.id).toEqual(3)
+      expect(results.limit).toEqual(20)
+      expect(results.offset).toEqual(0)
+    })
+  })
   test('should batch import articles successfully', async () => {
     const exampleData = [
       {

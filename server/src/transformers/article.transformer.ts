@@ -6,6 +6,7 @@ export function getArticleResponse(article: Article): ArticleResponse {
     categoryId: article.categoryId,
     title: article.title,
     content: article.content,
+    category: article.Category?.response,
     createdAt: article.createdAt.getTime(),
     updatedAt: article.updatedAt.getTime(),
   }

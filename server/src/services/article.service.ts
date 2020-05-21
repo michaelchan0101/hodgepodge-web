@@ -79,7 +79,7 @@ export default {
     return nArticles
   },
   async listArtcles(
-    filters: ListArticlesFilter,
+    filters: ListArticlesFilter = {},
     limit = 20,
     offset = 0
   ): Promise<ListArticlesResponse> {
@@ -87,10 +87,11 @@ export default {
     if (filters.categoryId) {
       where.categoryId = filters.categoryId
     }
-    const articles = await Article.findAll({
+    const articles = await Article.scope('withCategory').findAll({
       where,
       limit,
       offset,
+      order: [['id', 'DESC']],
     })
     return {
       articles: articles.map((article: Article) => article.getResponse()),
