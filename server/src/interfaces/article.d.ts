@@ -19,3 +19,13 @@ export interface ArticleResponse {
   createdAt: number
   updatedAt: number
 }
+
+export interface ListArticlesFilter {
+  categoryId?: number
+}
+
+export interface ListArticlesResponse {
+  articles: Array<Article>
+  limit: number
+  offset: number
+}

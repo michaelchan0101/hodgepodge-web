@@ -3,6 +3,8 @@ import {
   ImportArticleRequest,
   CreateOrUpdateArticleRequest,
   ArticleResponse,
+  ListArticlesResponse,
+  ListArticlesFilter,
 } from 'interfaces/article'
 import fs from 'fs'
 import { Op } from 'sequelize'
@@ -40,7 +42,7 @@ export default {
   async batchImportArtcles(
     files: Array<ImportArticleRequest>
   ): Promise<Array<ArticleResponse>> {
-    const articles: Array<Article> = await Article.findAll({
+    const articles = await Article.findAll({
       where: { title: { [Op.in]: files.map(file => file.title) } },
     })
     const articleObj: { [title: string]: Article } = {}
@@ -75,5 +77,25 @@ export default {
       nArticles.push(article.getResponse())
     }
     return nArticles
+  },
+  async listArtcles(
+    filters: ListArticlesFilter,
+    limit = 20,
+    offset = 0
+  ): Promise<ListArticlesResponse> {
+    const where: Record<string, any> = {}
+    if (filters.categoryId) {
+      where.categoryId = filters.categoryId
+    }
+    const articles = await Article.findAll({
+      where,
+      limit,
+      offset,
+    })
+    return {
+      articles: articles.map((article: Article) => article.getResponse()),
+      limit,
+      offset,
+    }
   },
 }
