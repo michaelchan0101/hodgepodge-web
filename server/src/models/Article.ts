@@ -1,6 +1,8 @@
 'use strict'
 import { DataTypes, Model, Sequelize } from 'sequelize'
 import { Category } from './Category'
+import { ArticleResponse } from 'interfaces/article'
+import { getArticleResponse } from 'transformers/article.transformer'
 
 const scheme = {
   id: {
@@ -30,6 +32,9 @@ export class Article extends Model {
   public readonly Category!: Category | null
   public readonly createdAt!: Date
   public readonly updatedAt!: Date
+  public getResponse(): ArticleResponse {
+    return getArticleResponse(this)
+  }
 }
 
 export function initArticle(sequelize: Sequelize) {

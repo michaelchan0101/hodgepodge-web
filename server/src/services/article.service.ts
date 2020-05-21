@@ -4,7 +4,6 @@ import {
   CreateOrUpdateArticleRequest,
   ArticleResponse,
 } from 'interfaces/article'
-import { getArticleResponse } from 'transformers/article.transformer'
 import fs from 'fs'
 import { Op } from 'sequelize'
 import { Converter } from 'showdown'
@@ -73,7 +72,7 @@ export default {
       } else {
         article = await updateArtcle(articleObj[title], articleReq)
       }
-      nArticles.push(getArticleResponse(article))
+      nArticles.push(article.getResponse())
     }
     return nArticles
   },
