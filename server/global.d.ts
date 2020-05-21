@@ -6,4 +6,3 @@ declare namespace NodeJS {
     afterAll(func: Function): void
   }
 }
-console.log('111')

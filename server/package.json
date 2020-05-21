@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon src/index.ts --exec ts-node",
+    "build": "tsc",
     "test": "jest --runInBand",
     "test:watch": "yarn test --watch",
     "start": "next start",
