@@ -9,6 +9,7 @@ import {
 import fs from 'fs'
 import { Op } from 'sequelize'
 import { Converter } from 'showdown'
+import { ArticleNotFoundError } from '@/errors'
 
 const converter = new Converter()
 
@@ -18,7 +19,7 @@ async function md2html(path: string): Promise<string> {
 }
 
 async function createArtcle(req: CreateOrUpdateArticleRequest): Promise<Article> {
-  const article: Article = await Article.create({ ...req, createdAt: req.updatedAt })
+  const article = await Article.create({ ...req, createdAt: req.updatedAt })
   article.set({ updatedAt: req.updatedAt }, { raw: true })
   await article.save({ silent: true, fields: ['updatedAt'] })
   return article
@@ -57,7 +58,7 @@ export default {
         articleObj[title] &&
         updatedAt.getTime() <= articleObj[title].createdAt.getTime()
       ) {
-        return
+        continue
       }
 
       const content = await md2html(file.path)
@@ -98,5 +99,12 @@ export default {
       limit,
       offset,
     }
+  },
+  async getArtcle(id: number): Promise<ArticleResponse> {
+    const article = await Article.scope('withCategory').findByPk(id)
+    if (!article) {
+      throw new ArticleNotFoundError(id)
+    }
+    return article.getResponse()
   },
 }

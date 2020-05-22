@@ -35,6 +35,10 @@ export class Article extends Model {
   public getResponse(): ArticleResponse {
     return getArticleResponse(this)
   }
+
+  public get response(): ArticleResponse {
+    return this.getResponse()
+  }
 }
 
 export function initArticle(sequelize: Sequelize) {

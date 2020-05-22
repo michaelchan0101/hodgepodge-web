@@ -16,7 +16,23 @@ describe('articleService', () => {
       expect(results.limit).toEqual(20)
       expect(results.offset).toEqual(0)
     })
+
+    test('should successfully/ limit = 2, offset = 2', async () => {
+      const results = await articleService.listArtcles({}, 2, 2)
+      expect(results.articles).toHaveLength(2)
+      expect(results.articles[0].id).toEqual(4)
+      expect(results.articles[0].category.id).toEqual(2)
+      expect(results.limit).toEqual(2)
+      expect(results.offset).toEqual(2)
+    })
   })
+
+  test('should get one artcle successfully', async () => {
+    const article = await articleService.getArtcle(1)
+    expect(article.id).toEqual(1)
+    expect(article.category.id).toEqual(1)
+  })
+
   test('should batch import articles successfully', async () => {
     const exampleData = [
       {
