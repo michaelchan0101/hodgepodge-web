@@ -7,9 +7,9 @@ describe('articleService', () => {
   beforeAll(async () => {
     await fixtures.reloadFixtures()
   })
-  describe('listArtcles', () => {
+  describe('listArticles', () => {
     test('should successfully', async () => {
-      const results = await articleService.listArtcles()
+      const results = await articleService.listArticles()
       expect(results.articles).toHaveLength(6)
       expect(results.articles[0].id).toEqual(6)
       expect(results.articles[0].category.id).toEqual(3)
@@ -18,7 +18,7 @@ describe('articleService', () => {
     })
 
     test('should successfully/ limit = 2, offset = 2', async () => {
-      const results = await articleService.listArtcles({}, 2, 2)
+      const results = await articleService.listArticles({}, 2, 2)
       expect(results.articles).toHaveLength(2)
       expect(results.articles[0].id).toEqual(4)
       expect(results.articles[0].category.id).toEqual(2)
@@ -27,8 +27,8 @@ describe('articleService', () => {
     })
   })
 
-  test('should get one artcle successfully', async () => {
-    const article = await articleService.getArtcle(1)
+  test('should get one article successfully', async () => {
+    const article = await articleService.getArticle(1)
     expect(article.id).toEqual(1)
     expect(article.category.id).toEqual(1)
   })
@@ -41,7 +41,7 @@ describe('articleService', () => {
         path: path.join(config.article.basePath, 'javascript', 'V8 垃圾回收机制.md'),
       },
     ]
-    const articles = await articleService.batchImportArtcles(exampleData)
+    const articles = await articleService.batchImportArticles(exampleData)
     expect(articles).toHaveLength(exampleData.length)
     expect(articles[0].title).toEqual(exampleData[0].title)
     expect(articles[0].createdAt).toEqual(articles[0].updatedAt)

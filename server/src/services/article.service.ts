@@ -18,14 +18,14 @@ async function md2html(path: string): Promise<string> {
   return converter.makeHtml(md.toString())
 }
 
-async function createArtcle(req: CreateOrUpdateArticleRequest): Promise<Article> {
+async function createArticle(req: CreateOrUpdateArticleRequest): Promise<Article> {
   const article = await Article.create({ ...req, createdAt: req.updatedAt })
   article.set({ updatedAt: req.updatedAt }, { raw: true })
   await article.save({ silent: true, fields: ['updatedAt'] })
   return article
 }
 
-async function updateArtcle(
+async function updateArticle(
   article: Article,
   req: CreateOrUpdateArticleRequest
 ): Promise<Article> {
@@ -40,7 +40,7 @@ async function getFileUpdatedAt(path: string): Promise<Date> {
 }
 
 export default {
-  async batchImportArtcles(
+  async batchImportArticles(
     files: Array<ImportArticleRequest>
   ): Promise<Array<ArticleResponse>> {
     const articles = await Article.findAll({
@@ -71,15 +71,15 @@ export default {
 
       let article: Article
       if (!articleObj[title]) {
-        article = await createArtcle(articleReq)
+        article = await createArticle(articleReq)
       } else {
-        article = await updateArtcle(articleObj[title], articleReq)
+        article = await updateArticle(articleObj[title], articleReq)
       }
       nArticles.push(article.getResponse())
     }
     return nArticles
   },
-  async listArtcles(
+  async listArticles(
     filters: ListArticlesFilter = {},
     limit = 20,
     offset = 0
@@ -100,7 +100,7 @@ export default {
       offset,
     }
   },
-  async getArtcle(id: number): Promise<ArticleResponse> {
+  async getArticle(id: number): Promise<ArticleResponse> {
     const article = await Article.scope('withCategory').findByPk(id)
     if (!article) {
       throw new ArticleNotFoundError(id)
