@@ -5,7 +5,7 @@ import articleController from 'controllers/article.controller'
 const routes: Array<RouteOptions> = [
   {
     path: '/articles',
-    post: {
+    get: {
       title: '文章列表',
       params: {
         query: {

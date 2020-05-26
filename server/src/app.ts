@@ -1,34 +1,33 @@
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
-import next from 'next'
 import { parse } from 'url'
-import path from 'path'
 // import errorHandler from 'middlewares/error'
 import { getRouters } from './routers'
-import { Context } from './interfaces/http'
+import { Context, Next } from './interfaces/http'
+import NextServer from 'next/dist/next-server/server/next-server'
 
-export const nextClientApp = next({
-  dev: process.env.NODE_ENV !== 'production',
-  dir: path.join(__dirname, '../../client'),
-})
-
-const handle = nextClientApp.getRequestHandler()
-const serverHandler = async (ctx: Context) => {
-  // Be sure to pass `true` as the second argument to `url.parse`.
-  // This tells it to parse the query portion of the URL.
-  const parsedUrl = parse(ctx.request.url, true)
-  const { pathname, query } = parsedUrl
-  // await handle(ctx.req, ctx.res, parsedUrl)
-  ctx.status = 200
-  if (pathname === '/') {
-    await nextClientApp.render(ctx.req, ctx.res, '/', query)
-  } else {
-    await handle(ctx.req, ctx.res, parsedUrl)
+const serverHandler = (nextApp: NextServer) => {
+  const handle = nextApp.getRequestHandler()
+  return async (ctx: Context, next: Next) => {
+    // Be sure to pass `true` as the second argument to `url.parse`.
+    // This tells it to parse the query portion of the URL.
+    const parsedUrl = parse(ctx.request.url, true)
+    const { pathname, query } = parsedUrl
+    // await handle(ctx.req, ctx.res, parsedUrl)
+    ctx.status = 200
+    if (pathname === '/') {
+      await nextApp.render(ctx.req, ctx.res, '/', query)
+    } else {
+      await handle(ctx.req, ctx.res, parsedUrl)
+    }
+    ctx.respond = false
   }
-  ctx.respond = false
 }
 
-export async function createApiServer(): Promise<Koa> {
+export async function createApiServer(
+  nextApp?: NextServer,
+  isTest?: boolean
+): Promise<Koa> {
   const app = new Koa()
   // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
   // app.use(logger('dev'))
@@ -59,11 +58,9 @@ export async function createApiServer(): Promise<Koa> {
       return next()
     }
   })
-  app.use((ctx, next) => {
-    // inject nextClientApp
-    ctx.nextClientApp = nextClientApp
-    return next()
-  })
+
+  // inject nextApp
+
   // init props
   // app.use((ctx, next) => {
   //   ctx.request.props = {
@@ -72,7 +69,13 @@ export async function createApiServer(): Promise<Koa> {
   //   return next()
   // })
   app.use(getRouters())
-  app.use(serverHandler)
+  if (nextApp) {
+    app.use((ctx, next) => {
+      ctx.nextApp = nextApp
+      return next()
+    })
+    app.use(serverHandler(nextApp))
+  }
 
   // app.on('error', errorHandler.generalErrorHandler)
   return app

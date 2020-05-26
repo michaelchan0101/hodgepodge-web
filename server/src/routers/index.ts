@@ -14,14 +14,14 @@ export function getRouters() {
       if (!route[method]) {
         return
       }
-      const { handle, handles = [], schema, params } = route[method]
+      const { handle, handles = [], params } = route[method]
       if (params) {
         handles.push(apiParamVerifier(params))
       }
       if (handle) {
         handles.push(handle)
       }
-      router[schema][method](`/${V10.version}${route.path}`, ...handles)
+      router[method](`/${V10.version}${route.path}`, ...handles)
     })
   })
   // catch 404 and forward to error handler
