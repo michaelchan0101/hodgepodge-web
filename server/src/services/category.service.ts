@@ -1,5 +1,5 @@
 import { Category } from '@/models'
-import { CategoryObjResponse } from 'interfaces/category'
+import { CategoryObjResponse, CategoryResponse } from 'interfaces/category'
 import { Op } from 'sequelize'
 
 function getCategoryObjResponse(
@@ -16,7 +16,7 @@ function getCategoryObjResponse(
 }
 export default {
   async batchCreateCategory(names: string[]): Promise<CategoryObjResponse> {
-    const categorys: Array<Category> = await Category.findAll({
+    const categorys = await Category.findAll({
       where: { name: { [Op.in]: names } },
     })
     const categoryObj: CategoryObjResponse = getCategoryObjResponse({}, categorys)
@@ -25,5 +25,13 @@ export default {
       names.filter(name => !categoryObj[name]).map(name => ({ name }))
     )
     return getCategoryObjResponse(categoryObj, nCategorys)
+  },
+  async listCategories(): Promise<{ categories: Array<CategoryResponse> }> {
+    const categories = await Category.findAll({
+      order: [['id', 'DESC']],
+    })
+    return {
+      categories: categories.map(category => category.getResponse()),
+    }
   },
 }
