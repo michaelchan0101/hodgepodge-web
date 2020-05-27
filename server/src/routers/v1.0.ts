@@ -1,6 +1,7 @@
 import { RouteOptions } from 'interfaces/http'
 import Joi from '@hapi/joi'
 import articleController from 'controllers/article.controller'
+import categoryController from 'controllers/category.controller'
 
 const routes: Array<RouteOptions> = [
   {
@@ -22,6 +23,13 @@ const routes: Array<RouteOptions> = [
     get: {
       title: '文章详情',
       handle: articleController.getArticle,
+    },
+  },
+  {
+    path: '/categories',
+    get: {
+      title: '分类列表',
+      handle: categoryController.listCategories,
     },
   },
 ]
