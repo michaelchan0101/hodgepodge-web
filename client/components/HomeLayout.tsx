@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import { AppProps } from 'next/app'
 
-export default function HomeLayout({ children }) {
+export default function HomeLayout(props: AppProps) {
   return (
     <div className='container'>
       <nav>
@@ -11,8 +12,6 @@ export default function HomeLayout({ children }) {
           <a>Detail</a>
         </Link>
       </nav>
-      <main>{children}</main>
-      {/* <main>{render()}</main> */}
       <footer></footer>
     </div>
   )

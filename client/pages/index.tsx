@@ -1,12 +1,9 @@
-import { Component } from 'react'
-// import HomeLayout from 'components/HomeLayout'
+import { AppProps } from 'next/app'
 
-export default class Main extends Component {
-  render() {
-    return (
-      <div>
-        <h1 className='title'>Welcome to Index</h1>
-      </div>
-    )
-  }
+export default function Main(props: AppProps) {
+  return (
+    <div>
+      <h1 className='title'>Welcome to Index</h1>
+    </div>
+  )
 }
