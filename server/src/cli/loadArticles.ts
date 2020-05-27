@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 // import showdown from 'showdown'
 
-const FILE_PATH = path.join(__dirname, '../../', 'articles')
+const FILE_PATH = path.join(__dirname, '../../../', 'articles')
 async function getFiles() {
   const categorys = fs.readdirSync(FILE_PATH)
   const files = []
