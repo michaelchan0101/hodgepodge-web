@@ -17,6 +17,13 @@ const routes: Array<RouteOptions> = [
       handle: articleController.listArticles,
     },
   },
+  {
+    path: '/articles/:id(\\d+)',
+    get: {
+      title: '文章详情',
+      handle: articleController.getArticle,
+    },
+  },
 ]
 
 export default {

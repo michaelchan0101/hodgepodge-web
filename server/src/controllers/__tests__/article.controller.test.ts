@@ -35,4 +35,13 @@ describe('ArticleController', () => {
       req.offset
     )
   })
+
+  test('Endpoint GET /api/v1.0/articles/:id', async () => {
+    mockedArticleService.getArticle.mockResolvedValueOnce(fakeArticleResp)
+    const response: any = await request(app).get('/api/v1.0/articles/1')
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual(fakeArticleResp)
+    expect(mockedArticleService.getArticle).toHaveBeenCalledTimes(1)
+    expect(mockedArticleService.getArticle).toBeCalledWith(1)
+  })
 })

@@ -11,4 +11,7 @@ export default {
       string2number(offset)
     )
   },
+  async getArticle(ctx: Context) {
+    ctx.body = await articleService.getArticle(string2number(ctx.params.id))
+  },
 }
