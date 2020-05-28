@@ -1,0 +1,71 @@
+if: branch =~ ^master$|^development$
+language: python
+group: stable
+dist: trusty
+os: linux
+sudo: required
+services:
+- docker
+
+cache: pip
+
+before_install: |-
+  if [ "master" == "${TRAVIS_BRANCH}" ]; then
+    for env_value in $(compgen -v |grep '.*_PRODUCTION$'); do
+      eval export ${env_value%_PRODUCTION}="${!env_value}"
+    done
+  else
+    for env_value in $(compgen -v |grep '.*_DEVELOPMENT$'); do
+      eval export ${env_value%_DEVELOPMENT}="${!env_value}"
+    done
+  fi
+install: |-
+  ## install awscli for ecr upload
+  pip install awscli --upgrade
+
+before_script: |-
+  sudo /etc/init.d/mysql stop && docker-compose up -d
+
+  # run 10 times; sleep 1 sec each; when socket ok, exit 0, if not, wait 1 sec
+  for run in {1..10}; do nc -nv -w 1 127.0.0.1 3006 && exit 0 || sleep 1 ; done
+
+script: |-
+  set -e
+  ## use auto incremental travis build number for image tag for version comparison
+  
+  tag_build_num="v${TRAVIS_BUILD_NUMBER}-build"
+  export IMAGE="ccr.ccs.tencentyun.com/michael1024/hodgepodge:$tag_build_num"
+  export IMAGE_LATEST="ccr.ccs.tencentyun.com/michael1024/hodgepodge:latest"
+  export IMAGE_INSTALLER=test
+
+  docker build -t ${IMAGE_INSTALLER} \
+    --target installer \
+    .
+
+  docker run --rm \
+    --network=host \
+    ${IMAGE_INSTALLER} bash -c "yarn && yarn test"
+  # upload coverage report to codecov
+  # bash <(curl -s https://codecov.io/bash) -t "${CODECOV_TOKEN}" -Z
+
+
+  ## build swagger doc if necessary, upload at deploy step
+  # - use the `installer` if build required
+
+  # build the final image
+  docker build -t "${IMAGE}" -t "${IMAGE_LATEST}" \
+    --build-arg TRAVIS_COMMIT=${TRAVIS_COMMIT} \
+    --build-arg TRAVIS_JOB_NUMBER=${TRAVIS_JOB_NUMBER} \
+    .
+
+deploy:
+
+# upload to ecr
+  - provider: script
+    script:  >-
+      docker login --username=${DOCKER_USERNAME} ccr.ccs.tencentyun.com
+      && docker push "${IMAGE}"
+      && docker push "${IMAGE_LATEST}"
+    skip_cleanup: true
+    on: &deployable-branch
+      all_branches: true

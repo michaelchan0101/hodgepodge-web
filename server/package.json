@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon src/index.ts --exec ts-node",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc && cp -rf src/migrations dist/migrations",
     "test": "jest --runInBand",
     "test:watch": "yarn test --watch",
     "start": "next start",
