@@ -22,7 +22,9 @@
       "@/*": [
         "./*"
       ],
-      "components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "styles/*": ["./styles/*"],
+      "types/*": ["./types/*"]
     },
   },
   "exclude": [

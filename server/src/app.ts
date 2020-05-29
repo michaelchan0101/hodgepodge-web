@@ -1,6 +1,8 @@
 import Koa from 'koa'
+import path from 'path'
 import bodyParser from 'koa-bodyparser'
 import { parse } from 'url'
+import staticServe from 'koa-static'
 // import errorHandler from 'middlewares/error'
 import { getRouters } from './routers'
 import { Context, Next } from './interfaces/http'
@@ -29,7 +31,7 @@ export async function createApiServer(
   isTest?: boolean
 ): Promise<Koa> {
   const app = new Koa()
-  // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+  app.use(staticServe(path.join(__dirname, '../public')))
   // app.use(logger('dev'))
   app.use(
     bodyParser({
