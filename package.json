@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.3.0",
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@types/axios": "^0.14.0",
     "@types/dotenv": "^8.2.0",
     "@types/hapi__joi": "^17.1.0",
     "@types/jest": "^25.2.1",

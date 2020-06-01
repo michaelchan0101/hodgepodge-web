@@ -5,11 +5,16 @@ body {
   font-size: 14px;
 }
 
-div,img,nav,span,a {
+div,img,nav,span,a,li,ul {
   padding: 0;
   margin: 0;
 }
 
+li {
+  list-style: none;
+}
+
 a {
+  color: #FFFFFF;
   text-decoration-line: none;
 }
