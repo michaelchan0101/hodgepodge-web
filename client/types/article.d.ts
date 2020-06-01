@@ -14,3 +14,9 @@ export interface ArticleResponse {
 export interface ArticleDetailProps extends AppProps {
   article: ArticleResponse
 }
+
+export interface ArticlesProps extends AppProps {
+  articles: Array<ArticleResponse>
+  limit: number
+  offset: number
+}

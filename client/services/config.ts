@@ -1,8 +1,6 @@
-import axios from 'axios'
-
-const BASE_URL = 'http://127.0.0.1:3000'
+import fetch from './fetch'
 
 export async function getConfig() {
-  const result = await axios.get(`${BASE_URL}/api/v1.0/config`)
+  const result = await fetch.get('/api/v1.0/config')
   return result.data
 }
