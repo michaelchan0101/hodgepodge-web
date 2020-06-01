@@ -2,6 +2,7 @@ import { RouteOptions } from 'interfaces/http'
 import Joi from '@hapi/joi'
 import articleController from 'controllers/article.controller'
 import categoryController from 'controllers/category.controller'
+import configController from 'controllers/config.controller'
 
 const routes: Array<RouteOptions> = [
   {
@@ -30,6 +31,13 @@ const routes: Array<RouteOptions> = [
     get: {
       title: '分类列表',
       handle: categoryController.listCategories,
+    },
+  },
+  {
+    path: '/config',
+    get: {
+      title: '网站配置',
+      handle: configController.getConfig,
     },
   },
 ]

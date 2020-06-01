@@ -22,12 +22,19 @@ export default {
     port: credentials.DB_PORT || '3306',
     host: credentials.DB_HOST || '127.0.0.1',
   },
+  web: {
+    title: credentials.WEB_TITLE,
+    desc: credentials.WEB_DESC,
+    icp: credentials.WEB_ICP,
+    icpTime: credentials.WEB_ICP_TIME,
+    email: credentials.WEB_EMAIL,
+  },
   umzug: {
     logging: str => {
       logger.info(str)
     },
   },
   article: {
-    basePath: path.join(__dirname, '../../', 'articles'),
+    basePath: path.join(__dirname, '../../../', 'articles'),
   },
 }
