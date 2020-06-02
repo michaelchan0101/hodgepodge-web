@@ -19,8 +19,8 @@ export interface ArticleResponse {
   title: string
   content: string
   category?: CategoryResponse
-  createdAt: number
-  updatedAt: number
+  createdAt: string
+  updatedAt: string
 }
 
 export interface ListArticlesFilter {
