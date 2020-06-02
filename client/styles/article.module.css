@@ -1,0 +1,23 @@
+.articleHeader {
+  font-size: 1.8em;
+  font-weight: bold;
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.articleBox {
+  margin-left: 1em;
+}
+
+.articleBox li {
+  font-size: 1em;
+  line-height: 220%;
+  list-style-type: square;
+  display: flex;
+  justify-content: space-between;
+}
+
+.articleBox a{
+  color: #567;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
