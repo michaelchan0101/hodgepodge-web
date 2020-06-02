@@ -11,12 +11,16 @@ export interface ArticleResponse {
   updatedAt: number
 }
 
+export interface ListArticlesResponse {
+  articles: Array<ArticleResponse>
+  limit: number
+  offset: number
+}
+
 export interface ArticleDetailProps extends AppProps {
   article: ArticleResponse
 }
 
 export interface ArticlesProps extends AppProps {
-  articles: Array<ArticleResponse>
-  limit: number
-  offset: number
+  listArticlesResponse: ListArticlesResponse
 }
