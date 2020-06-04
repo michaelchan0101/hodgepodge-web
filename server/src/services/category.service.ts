@@ -15,7 +15,7 @@ function getCategoryObjResponse(
   return categoryObj
 }
 export default {
-  async batchCreateCategory(names: string[]): Promise<CategoryObjResponse> {
+  async batchCreateCategories(names: string[]): Promise<CategoryObjResponse> {
     const categorys = await Category.findAll({
       where: { name: { [Op.in]: names } },
     })

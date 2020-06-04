@@ -15,6 +15,7 @@ export interface ListArticlesResponse {
   articles: Array<ArticleResponse>
   limit: number
   offset: number
+  isLoading?: boolean
 }
 
 export interface ArticleDetailProps extends AppProps {
@@ -22,5 +23,7 @@ export interface ArticleDetailProps extends AppProps {
 }
 
 export interface ArticlesProps extends AppProps {
-  listArticlesResponse: ListArticlesResponse
+  articles: Array<ArticleResponse>
+  limit: number
+  offset: number
 }

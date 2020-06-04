@@ -15,7 +15,7 @@ describe('CategoryService', () => {
 
   test('should batch create category successfully', async () => {
     const names = ['category-1', 'category-2', 'category-3', 'category-4']
-    const categoryObj = await categoryService.batchCreateCategory(names)
+    const categoryObj = await categoryService.batchCreateCategories(names)
     expect(Object.keys(categoryObj)).toHaveLength(names.length)
     names.forEach(name => {
       expect(categoryObj[name].name).toEqual(name)

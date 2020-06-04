@@ -1,47 +1,52 @@
 import style from 'styles/article.module.css'
 import { listArticles } from 'services/article'
-import { ArticlesProps, ListArticlesResponse } from 'types/article'
+import { ArticlesProps } from 'types/article'
 import Link from 'next/link'
-import { useReducer, DispatchWithoutAction } from 'react'
+import { useState } from 'react'
 
+const LIMIT = 20
 export async function getStaticProps() {
-  const [limit, offset] = [20, 0]
-  const listArticlesResponse = await listArticles(limit, offset)
+  const response = await listArticles(LIMIT, 0)
   return {
-    props: { listArticlesResponse },
+    props: { ...response },
   }
 }
 
-const articleReducer = async (
-  state: ListArticlesResponse
-): Promise<ListArticlesResponse> => {
-  const { limit, offset } = state
-  const listArticlesResponse = await listArticles(limit, offset + limit)
-  return listArticlesResponse
-}
-
 export default function Articles(props: ArticlesProps) {
-  const { listArticlesResponse } = props
-  const [response, articleDispatch]: [
-    ListArticlesResponse,
-    DispatchWithoutAction
-  ] = useReducer(articleReducer, listArticlesResponse)
+  const { articles: initArticles, offset: initOffset } = props
+  const [articles, setArticles] = useState(initArticles)
+  const [offset, setOffset] = useState(initOffset)
 
+  let isLoading = false
+  const loadArticles = async (offset: number) => {
+    if (isLoading) {
+      return
+    }
+    isLoading = true
+    const response = await listArticles(LIMIT, offset + LIMIT)
+    setArticles(articles.concat(response.articles))
+    setOffset(response.offset)
+    isLoading = false
+  }
   return (
     <>
       <div className={style.articleHeader}>文章列表</div>
       <ul className={style.articleBox}>
-        {response.articles.map(article => (
-          <li>
+        {articles.map(article => (
+          <li key={article.id}>
             <Link href={`/detail/${article.id}`}>
               <a>{article.title}</a>
             </Link>
             <span>{article.createdAt}</span>
           </li>
         ))}
-        <li>
-          <a onClick={() => articleDispatch()}>获取更多文章...</a>
-        </li>
+        {offset + LIMIT === articles.length ? (
+          <li>
+            <a onClick={() => loadArticles(offset)}>获取更多文章...</a>
+          </li>
+        ) : (
+          ''
+        )}
       </ul>
     </>
   )

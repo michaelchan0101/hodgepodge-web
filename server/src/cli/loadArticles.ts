@@ -1,24 +1,35 @@
+import '../utils/modulesAlias'
 import fs from 'fs'
 import path from 'path'
+import categoryService from 'services/category.service'
+import articleService from 'services/article.service'
 // import showdown from 'showdown'
 
 const FILE_PATH = path.join(__dirname, '../../../', 'articles')
 async function getFiles() {
-  const categorys = fs.readdirSync(FILE_PATH)
-  const files = []
-  categorys.forEach(category => {
+  const categories = fs.readdirSync(FILE_PATH)
+  const articles = []
+  categories.forEach(category => {
     const categoryPath = path.join(FILE_PATH, category)
     fs.readdirSync(categoryPath).forEach(filePath => {
-      files.push({
+      articles.push({
         categoryName: category,
+        title: filePath.replace('.md', ''),
         path: path.join(categoryPath, filePath),
       })
     })
   })
-  return { categorys, files }
+  return { categories, articles }
 }
 async function handler() {
-  const { categorys, files } = await getFiles()
-  console.log(categorys, files)
+  const { categories, articles } = await getFiles()
+  const categoryObj = await categoryService.batchCreateCategories(categories)
+  await articleService.batchImportArticles(
+    articles.map(article => ({
+      categoryId: categoryObj[article.categoryName].id,
+      title: article.title,
+      path: article.path,
+    }))
+  )
 }
 handler()
