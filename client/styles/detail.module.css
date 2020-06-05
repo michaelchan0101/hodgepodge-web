@@ -1,0 +1,11 @@
+.detailTitle {
+  text-align: left;
+  font-size: 2em;
+  /* padding-bottom: 0.5em;
+  border-bottom: 1px solid #d3d3d3; */
+  margin-bottom: 1rem;
+}
+
+.detailLable {
+  color: #c7c7c7;
+}

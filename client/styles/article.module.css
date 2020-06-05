@@ -1,11 +1,12 @@
 .articleHeader {
   font-size: 1.8em;
   font-weight: bold;
+  padding-bottom: 1rem;
   border-bottom: 1px solid #d3d3d3;
 }
 
 .articleBox {
-  margin-left: 1em;
+  margin: 1rem 0 0 1rem;
 }
 
 .articleBox li {

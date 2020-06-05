@@ -42,7 +42,7 @@ export default function Articles(props: ArticlesProps) {
         ))}
         {offset + LIMIT === articles.length ? (
           <li>
-            <a onClick={() => loadArticles(offset)}>获取更多文章...</a>
+            <a onClick={() => loadArticles(offset)}>获取更多文章......</a>
           </li>
         ) : (
           ''
