@@ -1,0 +1,13 @@
+{
+  "name": "hodgepodge-server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon src/index.ts --exec ts-node",
+    "build": "rm -rf dist && tsc && cp -rf src/migrations dist/migrations",
+    "test": "jest --runInBand",
+    "test:watch": "yarn test --watch",
+    "start": "next start",
+    "tsc:config": "tsc --listFiles"
+  }
+}

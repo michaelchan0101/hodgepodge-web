@@ -1,0 +1,10 @@
+.content {
+  width: 68%;
+  margin-left: 32%;
+  z-index: 800;
+}
+
+.main {
+  margin: 0 10%;
+  padding: 50px 0;
+}

@@ -1,0 +1,21 @@
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  color: #b3b3b3;
+  margin: 0 10%;
+  border-top: 2px solid #dddddd;
+  padding: 2rem 0;
+}
+
+.footer a {
+  color: #b3b3b3;
+  text-decoration-line: underline;
+}
+
+.footer div {
+  margin: 0px 5px;
+}
+
+.footer div:first-child{
+  margin-left: 0;
+}
