@@ -13,16 +13,16 @@ module.exports = {
         autorestart: true,
       },
       env_production: {
-        NODE_ENV: 'production',
-        NODE_PORT: '8080',
+        NODE_HODGEPODGE_ENV: 'production',
+        NODE_HODGEPODGE_PORT: '8080',
       },
       env_staging: {
-        NODE_ENV: 'staging',
-        NODE_PORT: '8080',
+        NODE_HODGEPODGE_ENV: 'staging',
+        NODE_HODGEPODGE_PORT: '8080',
       },
       env_development: {
-        NODE_ENV: 'development',
-        NODE_PORT: '8080',
+        NODE_HODGEPODGE_ENV: 'development',
+        NODE_HODGEPODGE_PORT: '8080',
       },
     },
   ],

@@ -28,9 +28,9 @@ COPY --from=installer /srv/. .
 COPY --from=builder /srv/client/.next ./client/.next
 COPY --from=builder /srv/server/dist ./server/dist
 
-# nextjs requires `NODE_ENV=production` for backend
-ENV PORT=3000 \
+# nextjs requires `NODE_HODGEPODGE_ENV=production` for backend
+ENV PORT=8080 \
     PM2_SCRIPT=/srv/server/dist/index.js \
-    NODE_ENV=production
+    NODE_HODGEPODGE_ENV=production
 
 ENTRYPOINT ["/base/scripts/start.sh"]
