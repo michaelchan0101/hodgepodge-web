@@ -1,6 +1,6 @@
 import winston from 'winston'
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_HODGEPODGE_ENV === 'development'
 
 const debugFormat = winston.format.printf(info => {
   return `${info.timestamp} ${info.level}: ${info.message}`

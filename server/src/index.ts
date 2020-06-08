@@ -6,10 +6,10 @@ import path from 'path'
 import { createApiServer } from './app'
 import umzug from 'drivers/umzug'
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.NODE_HODGEPODGE_PORT || 3000
 
 const nextApp = next({
-  dev: process.env.NODE_ENV !== 'production',
+  dev: process.env.NODE_HODGEPODGE_ENV !== 'production',
   dir: path.join(__dirname, '../../client'),
 })
 
