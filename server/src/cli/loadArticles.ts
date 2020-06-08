@@ -22,6 +22,7 @@ async function getFiles() {
   return { categories, articles }
 }
 async function handler() {
+  console.time('loading articles')
   const { categories, articles } = await getFiles()
   const categoryObj = await categoryService.batchCreateCategories(categories)
   await articleService.batchImportArticles(
@@ -31,5 +32,6 @@ async function handler() {
       path: article.path,
     }))
   )
+  console.timeEnd('loading articles')
 }
 handler()

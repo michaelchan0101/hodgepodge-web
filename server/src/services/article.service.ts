@@ -8,14 +8,20 @@ import {
 } from 'interfaces/article'
 import fs from 'fs'
 import { Op } from 'sequelize'
-import { Converter } from 'showdown'
+import marked from 'marked'
 import { ArticleNotFoundError } from '@/errors'
 
-const converter = new Converter()
+// const converter = new Converter({
+//   tasklists: true,
+//   tables: true,
+//   underline: true,
+//   parseImgDimensions: true,
+//   strikethrough: true,
+// })
 
 async function md2html(path: string): Promise<string> {
   const md = await fs.promises.readFile(path)
-  return converter.makeHtml(md.toString())
+  return marked(md.toString())
 }
 
 async function createArticle(req: CreateOrUpdateArticleRequest): Promise<Article> {
@@ -29,8 +35,9 @@ async function updateArticle(
   article: Article,
   req: CreateOrUpdateArticleRequest
 ): Promise<Article> {
-  article.set(req, { raw: true })
-  await article.save({ silent: true, fields: ['updatedAt'] })
+  // article.set(req, { raw: true })
+  // await article.save({ silent: true, fields: Object.keys(req) })
+  await article.update(req)
   return article
 }
 

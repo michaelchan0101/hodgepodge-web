@@ -10,6 +10,7 @@
 }
 
 .articleBox li {
+  list-style: none;
   font-size: 1em;
   line-height: 220%;
   list-style-type: square;
