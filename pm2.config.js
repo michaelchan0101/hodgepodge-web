@@ -14,15 +14,15 @@ module.exports = {
       },
       env_production: {
         NODE_HODGEPODGE_ENV: 'production',
-        NODE_HODGEPODGE_PORT: '8080',
+        NODE_HODGEPODGE_PORT: '3000',
       },
       env_staging: {
         NODE_HODGEPODGE_ENV: 'staging',
-        NODE_HODGEPODGE_PORT: '8080',
+        NODE_HODGEPODGE_PORT: '3000',
       },
       env_development: {
         NODE_HODGEPODGE_ENV: 'development',
-        NODE_HODGEPODGE_PORT: '8080',
+        NODE_HODGEPODGE_PORT: '3000',
       },
     },
   ],
