@@ -4,7 +4,7 @@ module.exports = {
       name: 'hodgepodge',
       instances: '1',
       exec_mode: 'cluster',
-      script: './service/dist/index.js',
+      script: './server/dist/index.js',
       merge_logs: true,
       restart_delay: 5000,
       wait_ready: true,
