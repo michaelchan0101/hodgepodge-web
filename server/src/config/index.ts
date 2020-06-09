@@ -28,6 +28,7 @@ export default {
     icp: credentials.WEB_ICP,
     icpTime: credentials.WEB_ICP_TIME,
     email: credentials.WEB_EMAIL,
+    github: credentials.GITHUB,
   },
   umzug: {
     logging: str => {

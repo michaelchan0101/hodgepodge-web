@@ -29,7 +29,7 @@ export default function MyApp(props: any) {
               </Link>
             </li>
             <li className={style.linkGithub}>
-              <a href='https://www.github.com/michaelchan0101' target='_blank'>
+              <a href={config.github} target='_blank'>
                 <img src='/github.png' />
               </a>
             </li>
