@@ -8,14 +8,13 @@ export default function MyApp(props: any) {
     maxWidth: router.pathname === '/' ? 'none' : '430px',
     width: router.pathname === '/' ? '100%' : '32%',
   }
-  const { config } = props
   return (
     <header className={style.header} style={headerStyle}>
       <div className={style.headerMain}>
         <div className={style.headerContent}>
-          <h1 className={style.title}>{config.title}</h1>
+          <h1 className={style.title}>{process.env.title}</h1>
           <div className={style.line100}></div>
-          <h2 className={style.desc}>{config.desc}</h2>
+          <h2 className={style.desc}>{process.env.desc}</h2>
           <div className={style.line50}></div>
           <nav>
             <Link href='/'>
@@ -29,7 +28,7 @@ export default function MyApp(props: any) {
               </li>
             </Link>
             <li className={style.linkGithub}>
-              <a href={config.github} target='_blank'>
+              <a href={process.env.github} target='_blank'>
                 <img src='/github.png' />
               </a>
             </li>

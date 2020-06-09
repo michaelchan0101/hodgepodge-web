@@ -1,12 +1,18 @@
-const withCSS = require('@zeit/next-css')
+const fs = require('fs')
+const path = require('path')
+const dotenv = require('dotenv')
 
-module.exports = withCSS({
-  webpack(config, { dev, webpack, isServer }) {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty',
-    }
-    return config
+const envBuf = fs.readFileSync(path.join(__dirname, '.env'))
+const credentials = dotenv.parse(envBuf)
+
+module.exports = {
+  env: {
+    title: credentials.WEB_TITLE,
+    desc: credentials.WEB_DESC,
+    icp: credentials.WEB_ICP,
+    icpTime: credentials.WEB_ICP_TIME,
+    email: credentials.WEB_EMAIL,
+    github: credentials.GITHUB,
   },
   poweredByHeader: false,
-})
+}
