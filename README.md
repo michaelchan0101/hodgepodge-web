@@ -82,6 +82,8 @@ yarn
 
 yarn docker:up
 
+cp client/.env.example client/.env
+
 cp server/.env.example server/.env
 
 yarn dev
