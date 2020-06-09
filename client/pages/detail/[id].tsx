@@ -1,11 +1,12 @@
 import style from 'styles/detail.module.css'
 import markdown from 'styles/markdown.module.css'
 import { ArticleDetailProps } from 'types/article'
-import { getArticle } from 'services/article'
+import { getArticle, listArticles } from 'services/article'
 
 export async function getStaticPaths() {
+  const { articles } = await listArticles(100, 0)
   return {
-    paths: [],
+    paths: articles.map(article => `/detail/${article.id}`),
     fallback: true,
   }
 }

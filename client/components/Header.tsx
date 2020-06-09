@@ -18,16 +18,16 @@ export default function MyApp(props: any) {
           <h2 className={style.desc}>{config.desc}</h2>
           <div className={style.line50}></div>
           <nav>
-            <li className={style.link}>
-              <Link href='/'>
+            <Link href='/'>
+              <li className={style.link}>
                 <a>首页</a>
-              </Link>
-            </li>
-            <li className={style.link}>
-              <Link href='/articles'>
+              </li>
+            </Link>
+            <Link href='/articles'>
+              <li className={style.link}>
                 <a>文章</a>
-              </Link>
-            </li>
+              </li>
+            </Link>
             <li className={style.linkGithub}>
               <a href={config.github} target='_blank'>
                 <img src='/github.png' />
