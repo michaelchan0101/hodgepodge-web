@@ -38,28 +38,6 @@ export async function createApiServer(
       enableTypes: ['json', 'form', 'xml'],
     })
   )
-  // app.use(async (ctx, next) => {
-  //   try {
-  //     await next()
-  //   } catch (err) {
-  //     errorHandler.generalErrorHandler(err, ctx)
-  //   }
-  // })
-
-  app.use((ctx, next) => {
-    ctx.set('Access-Control-Allow-Origin', '*')
-    ctx.set('Access-Control-Allow-Credentials', 'true')
-    ctx.set(
-      'Access-Control-Allow-Headers',
-      'Content-Type, Content-Length, Authorization, Accept, X-Requested-With, auth-schema-hodgepodge'
-    )
-    ctx.set('Access-Control-Allow-Methods', 'PUT, POST, PATCH, GET, DELETE, OPTIONS')
-    if (ctx.request.method === 'OPTIONS') {
-      ctx.status = 200
-    } else {
-      return next()
-    }
-  })
 
   // inject nextApp
 
