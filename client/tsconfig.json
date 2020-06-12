@@ -19,13 +19,11 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
+      "@/*": ["./*"],
       "components/*": ["./components/*"],
-      "styles/*": ["./styles/*"],
+      "styles/*": [ "./styles/*"],
       "types/*": ["./types/*"]
-    },
+    }
   },
   "exclude": [
     "node_modules"

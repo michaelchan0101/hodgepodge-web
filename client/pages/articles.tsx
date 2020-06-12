@@ -1,5 +1,5 @@
 import style from 'styles/article.module.css'
-import { listArticles } from 'services/article'
+import { listArticles } from 'apis/article'
 import { ArticlesProps } from 'types/article'
 import Link from 'next/link'
 import { useState } from 'react'

@@ -13,6 +13,7 @@ module.exports = {
     icpTime: credentials.WEB_ICP_TIME,
     email: credentials.WEB_EMAIL,
     github: credentials.GITHUB,
+    apiHost: credentials.API_HOST,
   },
   poweredByHeader: false,
 }

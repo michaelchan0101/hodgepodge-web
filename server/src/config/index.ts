@@ -38,4 +38,7 @@ export default {
   article: {
     basePath: path.join(__dirname, '../../../', 'articles'),
   },
+  cors: {
+    origin: credentials.CORS_ORIGIN,
+  },
 }

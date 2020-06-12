@@ -1,4 +1,4 @@
-import { Context, Next } from 'interfaces/http'
+import { Context, Next } from 'koa'
 import _ from 'lodash'
 import * as Sequelize from 'sequelize'
 
@@ -15,20 +15,14 @@ export async function generalErrorHandler(ctx: Context, next: Next) {
 
     let e = null
     if (error && error instanceof errors.BaseError) {
-      logger.warn(
-        'known error - %s|user:%j|params:%j',
-        error,
-        ctx.user,
-        ctx.request.query
-      )
+      logger.warn('known error - %s|params:%j', error, ctx.request.query)
       e = error
     } else {
       e = new errors.UnknownServerError(error)
       logger.error(
-        'unknown error - %s|details:%s|user:%j|params:%j',
+        'unknown error - %s|details:%s|params:%j',
         error,
         e.details,
-        ctx.user,
         ctx.request.query
       )
     }

@@ -1,18 +1,18 @@
 import style from 'styles/detail.module.css'
 import markdown from 'styles/markdown.module.css'
 import { ArticleDetailProps } from 'types/article'
-import { getArticle, listArticles } from 'services/article'
+import { getArticle, listArticles } from 'apis/article'
 
 export async function getStaticPaths() {
   const { articles } = await listArticles(100, 0)
   return {
-    paths: articles.map(article => `/detail/${article.id}`),
+    paths: articles.map(article => `/articles/${article.id}`),
     fallback: true,
   }
 }
 
 export async function getStaticProps(context: any) {
-  const article = await getArticle(context.params.id)
+  const article = await getArticle(context.query.id)
   return {
     props: {
       article,
