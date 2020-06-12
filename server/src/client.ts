@@ -4,6 +4,7 @@ import next from 'next'
 import path from 'path'
 import staticServe from 'koa-static'
 import Router from 'koa-router'
+import logger from 'koa-logger'
 
 const PORT = process.env.NODE_HODGEPODGE_CLIENT_PORT || 3001
 
@@ -25,11 +26,18 @@ const pageErrorHandler = async (ctx: Context, next: Next) => {
 
 function getRoutes() {
   const router = new Router()
-  router.get('/articles/:id', ctx => {
+  router.get('/', ctx => {
+    ctx.status = 200
+    return nextApp.render(ctx.req, ctx.res, '/index')
+  })
+
+  router.get('/article/:id', ctx => {
+    ctx.status = 200
     return nextApp.render(ctx.req, ctx.res, '/article', { id: ctx.params.id })
   })
 
   router.get('/articles', ctx => {
+    ctx.status = 200
     return nextApp.render(ctx.req, ctx.res, '/articles')
   })
   router.get('*', ctx => {
@@ -40,6 +48,7 @@ function getRoutes() {
 }
 async function main() {
   const app = new Koa()
+  app.use(logger())
   app.use(pageErrorHandler)
   app.use(staticServe(path.join(__dirname, '../public')))
   app.use(getRoutes())

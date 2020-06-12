@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const LIMIT = 20
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const response = await listArticles(LIMIT, 0)
   return {
     props: { ...response },
@@ -34,7 +34,7 @@ export default function Articles(props: ArticlesProps) {
       <ul className={style.articleBox}>
         {articles.map(article => (
           <li key={article.id}>
-            <Link href={`/detail/${article.id}`}>
+            <Link href={`/article?id=${article.id}`} as={`/article/${article.id}`}>
               <a>{article.title}</a>
             </Link>
             <span>{article.createdAt}</span>

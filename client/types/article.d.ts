@@ -19,7 +19,7 @@ export interface ListArticlesResponse {
 }
 
 export interface ArticleDetailProps extends AppProps {
-  article: ArticleResponse
+  articleId?: number
 }
 
 export interface ArticlesProps extends AppProps {

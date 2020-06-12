@@ -1,27 +1,35 @@
 import style from 'styles/detail.module.css'
 import markdown from 'styles/markdown.module.css'
-import { ArticleDetailProps } from 'types/article'
-import { getArticle, listArticles } from 'apis/article'
+import { ArticleDetailProps, ArticleResponse } from 'types/article'
+import { getArticle } from 'apis/article'
+import { useState, useEffect } from 'react'
 
-export async function getStaticPaths() {
-  const { articles } = await listArticles(100, 0)
-  return {
-    paths: articles.map(article => `/articles/${article.id}`),
-    fallback: true,
-  }
-}
+// export async function getStaticPaths() {
+//   const { articles } = await listArticles(100, 0)
+//   return {
+//     paths: articles.map(article => `/articles/${article.id}`),
+//     fallback: true,
+//   }
+// }
 
-export async function getStaticProps(context: any) {
-  const article = await getArticle(context.query.id)
+export async function getServerSideProps(context: any) {
   return {
     props: {
-      article,
+      articleId: context?.query?.id || null,
     }, // will be passed to the page component as props
   }
 }
 
-export default function Detail(props: ArticleDetailProps) {
-  const { article } = props
+export default function Article(props: ArticleDetailProps) {
+  const { articleId } = props
+  const [article, setArticle] = useState<ArticleResponse | null>(null)
+  useEffect(() => {
+    if (articleId) {
+      getArticle(articleId).then(response => {
+        setArticle(response)
+      })
+    }
+  }, [articleId])
   if (!article) {
     return <div>loading...</div>
   }
