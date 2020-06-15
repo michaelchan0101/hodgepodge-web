@@ -6,6 +6,7 @@
     "dev:server": "cd server && yarn dev:server",
     "dev:client": "cd server && yarn dev:client",
     "start": "pm2 start pm2.config.js --env=production",
+    "reload": "pm2 reload hodgepodge && pm2 reload hodgepodge_client",
     "docker:up": "cd server && docker-compose up -d",
     "docker:down": "cd server && docker-compose down",
     "build:server": "cd server && yarn build",
