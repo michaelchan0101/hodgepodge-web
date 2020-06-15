@@ -5,7 +5,8 @@
   "scripts": {
     "dev:server": "cd server && yarn dev:server",
     "dev:client": "cd server && yarn dev:client",
-    "start": "pm2 start pm2.config.js --env=production",
+    "start:server": "pm2 start pm2/server.config.js --env=production",
+    "start:client": "pm2 start pm2/client.config.js --env=production",
     "reload": "pm2 reload hodgepodge && pm2 reload hodgepodge_client",
     "docker:up": "cd server && docker-compose up -d",
     "docker:down": "cd server && docker-compose down",
