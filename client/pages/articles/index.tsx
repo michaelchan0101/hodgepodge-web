@@ -34,7 +34,7 @@ export default function Articles(props: ArticlesProps) {
       <ul className={style.articleBox}>
         {articles.map(article => (
           <li key={article.id}>
-            <Link href={`/article?id=${article.id}`} as={`/article/${article.id}`}>
+            <Link href={`/article/[id]`} as={`/article/${article.id}`}>
               <a>{article.title}</a>
             </Link>
             <span>{article.createdAt}</span>
