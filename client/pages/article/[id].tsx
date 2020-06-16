@@ -13,19 +13,19 @@ import { useRouter } from 'next/router'
 //   }
 // }
 
-// export async function getServerSideProps(context: any) {
-//   return {
-//     props: {
-//       articleId: context?.query?.id || null,
-//     }, // will be passed to the page component as props
-//   }
-// }
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      articleId: context?.query?.id || null,
+    }, // will be passed to the page component as props
+  }
+}
 
 export default function Article(props: ArticleDetailProps) {
   // const { articleId } = props
   const router = useRouter()
   const { id } = router.query
-  const [articleId, setArticleId] = useState(Number(id))
+  const [articleId] = useState(Number(id))
   const [article, setArticle] = useState<ArticleResponse | null>(null)
   useEffect(() => {
     if (articleId) {

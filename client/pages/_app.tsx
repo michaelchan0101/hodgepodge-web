@@ -5,6 +5,14 @@ import Head from 'next/head'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      title: context?.query?.title || null,
+    }, // will be passed to the page component as props
+  }
+}
+
 function MyApp({ Component, pageProps, props }: any) {
   return (
     <>

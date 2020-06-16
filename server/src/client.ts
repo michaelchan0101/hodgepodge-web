@@ -33,7 +33,10 @@ function getRoutes() {
 
   router.get('/article/:id', ctx => {
     ctx.status = 200
-    return nextApp.render(ctx.req, ctx.res, '/article/[id]', { id: ctx.params.id })
+    return nextApp.render(ctx.req, ctx.res, '/article/[id]', {
+      title: '11',
+      id: ctx.params.id,
+    })
   })
 
   router.get('/articles', ctx => {
