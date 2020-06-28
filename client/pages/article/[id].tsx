@@ -5,31 +5,20 @@ import { getArticle } from 'apis/article'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
-// export async function getStaticPaths() {
-//   const { articles } = await listArticles(100, 0)
-//   return {
-//     paths: articles.map(article => `/articles/${article.id}`),
-//     fallback: true,
-//   }
-// }
-
 export async function getServerSideProps(context: any) {
+  const article = await getArticle(context.query.id)
   return {
-    props: {
-      articleId: context?.query?.id || null,
-    }, // will be passed to the page component as props
+    props: { article }, // will be passed to the page component as props
   }
 }
 
 export default function Article(props: ArticleDetailProps) {
-  // const { articleId } = props
-  const router = useRouter()
-  const { id } = router.query
-  const [articleId] = useState(Number(id))
-  const [article, setArticle] = useState<ArticleResponse | null>(null)
+  const { article: initArticle = null } = props
+  const { id: articleId } = useRouter().query
+  const [article, setArticle] = useState<ArticleResponse | null>(initArticle)
   useEffect(() => {
-    if (articleId) {
-      getArticle(articleId).then(response => {
+    if (articleId && Number(articleId) !== article?.id) {
+      getArticle(Number(articleId)).then(response => {
         setArticle(response)
       })
     }

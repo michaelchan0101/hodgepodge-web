@@ -16,4 +16,7 @@ module.exports = {
     apiHost: credentials.API_HOST,
   },
   poweredByHeader: false,
+  devIndicators: {
+    autoPrerender: false,
+  },
 }

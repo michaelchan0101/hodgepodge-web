@@ -1,11 +1,11 @@
 import 'styles/app.css'
 import style from 'styles/app.module.css'
-// import { AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import Head from 'next/head'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 
-function MyApp({ Component, pageProps, props }: any) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
