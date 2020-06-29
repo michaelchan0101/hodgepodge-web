@@ -2,9 +2,10 @@ import Koa, { Context, Next } from 'koa'
 import http from 'http'
 import next from 'next'
 import path from 'path'
-import staticServe from 'koa-static'
+import staticCache from 'koa-static-cache'
 import Router from 'koa-router'
 import logger from 'koa-logger'
+import fs from 'fs'
 
 const PORT = process.env.NODE_HODGEPODGE_CLIENT_PORT || 3001
 
@@ -31,10 +32,24 @@ function getRoutes() {
     return nextApp.render(ctx.req, ctx.res, '/index')
   })
 
+  router.get('/sw.js', ctx => {
+    const filePath = path.join(nextApp.dir, '.next', ctx.request.path)
+    // ctx.status = 200
+    ctx.response.set('content-type', 'application/javascript')
+    const stream = fs.createReadStream(filePath)
+    ctx.body = stream
+  })
+
+  router.get('/workbox-:name(.*)', ctx => {
+    const filePath = path.join(nextApp.dir, `.next`, ctx.request.path)
+    ctx.response.set('content-type', 'application/javascript')
+    const stream = fs.createReadStream(filePath)
+    ctx.body = stream
+  })
+
   router.get('/article/:id', ctx => {
     ctx.status = 200
     return nextApp.render(ctx.req, ctx.res, '/article/[id]', {
-      title: '11',
       id: ctx.params.id,
     })
   })
@@ -54,7 +69,11 @@ async function main() {
   const app = new Koa()
   app.use(logger())
   app.use(pageErrorHandler)
-  app.use(staticServe(path.join(__dirname, '../public')))
+  app.use(
+    staticCache(path.join(__dirname, '../public'), {
+      maxAge: 365 * 24 * 60 * 60,
+    })
+  )
   app.use(getRoutes())
 
   nextApp.prepare().then(() => {
