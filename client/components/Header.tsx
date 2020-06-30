@@ -1,15 +1,9 @@
 import style from 'styles/header.module.css'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 export default function MyApp(props: any) {
-  const router = useRouter()
-  const headerStyle = {
-    maxWidth: router.pathname === '/' ? 'none' : '430px',
-    width: router.pathname === '/' ? '100%' : '32%',
-  }
   return (
-    <header className={style.header} style={headerStyle}>
+    <header className={style.header}>
       <div className={style.headerMain}>
         <div className={style.headerContent}>
           <h1 className={style.title}>{process.env.title}</h1>
@@ -19,14 +13,14 @@ export default function MyApp(props: any) {
           <nav>
             <Link href='/'>
               <li className={style.link}>
-                <a>首页</a>
-              </li>
-            </Link>
-            <Link href='/articles'>
-              <li className={style.link}>
                 <a>文章</a>
               </li>
             </Link>
+            {/* <Link href='/articles'>
+              <li className={style.link}>
+                <a>文章</a>
+              </li>
+            </Link> */}
             <li className={style.linkGithub}>
               <a href={process.env.github} target='_blank'>
                 <img src='/github.png' />
