@@ -50,8 +50,6 @@ First, run the development server:
 ```bash
 yarn
 
-yarn docker:up
-
 cp .env.example .env
 
 yarn dev
