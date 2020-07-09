@@ -1,9 +1,0 @@
-{
-  "ignore": [
-    "*.test.ts",
-    "src/client.ts"
-  ],
-  "watch": [
-    "src/*"
-  ]
-}
