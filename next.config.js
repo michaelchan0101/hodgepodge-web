@@ -3,7 +3,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 const withPWA = require('next-pwa')
 
-const envBuf = fs.readFileSync(path.join(__dirname, '../.env'))
+const envBuf = fs.readFileSync(path.join(__dirname, '.env'))
 const credentials = dotenv.parse(envBuf)
 
 module.exports = withPWA({
