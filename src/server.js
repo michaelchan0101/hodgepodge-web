@@ -10,7 +10,7 @@ const Koa = require('koa')
 const PORT = process.env.NODE_HODGEPODGE_CLIENT_PORT || 3001
 
 const nextApp = next({
-  dev: process.env.NODE_HODGEPODGE_CLIENT_ENV !== 'production',
+  dev: true, //process.env.NODE_HODGEPODGE_CLIENT_ENV !== 'production',
   dir: __dirname,
 })
 const handle = nextApp.getRequestHandler()

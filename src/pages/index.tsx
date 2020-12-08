@@ -2,7 +2,7 @@ import style from 'styles/article.module.css'
 import { listArticles } from 'apis/article'
 import { ArticlesProps } from 'types/article'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const LIMIT = 20
 export async function getServerSideProps() {
@@ -14,19 +14,28 @@ export async function getServerSideProps() {
 
 export default function Articles(props: ArticlesProps) {
   const { articles: initArticles, offset: initOffset } = props
+
   const [articles, setArticles] = useState(initArticles)
   const [offset, setOffset] = useState(initOffset)
+  const [loading, setLoading] = useState(false)
 
-  let isLoading = false
-  const loadArticles = async (offset: number) => {
-    if (isLoading) {
+  useEffect(() => {
+    if (offset) {
+      ;(async () => {
+        const response = await listArticles(LIMIT, offset)
+        setArticles([...articles, ...response.articles])
+        setOffset(response.offset)
+        setLoading(false)
+      })()
+    }
+  }, [offset])
+
+  const loadArticles = async () => {
+    if (loading) {
       return
     }
-    isLoading = true
-    const response = await listArticles(LIMIT, offset + LIMIT)
-    setArticles(articles.concat(response.articles))
-    setOffset(response.offset)
-    isLoading = false
+    setLoading(true)
+    setOffset(offset + LIMIT)
   }
   return (
     <>
@@ -42,7 +51,7 @@ export default function Articles(props: ArticlesProps) {
         ))}
         {offset + LIMIT === articles.length ? (
           <li>
-            <a onClick={() => loadArticles(offset)}>获取更多文章......</a>
+            <a onClick={loadArticles}>获取更多文章......</a>
           </li>
         ) : (
           ''
